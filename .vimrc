@@ -53,7 +53,6 @@ vmap <Leader>y "+y
 vmap <Leader>p "+p
 nnoremap <leader>r @:
 
-
 nnoremap - <C-w><
 tnoremap <Esc> <C-\><C-n>
 inoremap <C-BS> <C-w>
@@ -293,8 +292,13 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
+inoremap <silent><expr> <CR> coc#pum#visible() 
+      \ ? coc#_select_confirm() 
+      \ : getline('.') =~ '^\s*//' ? "\<CR>\<Esc>S" 
+      \ : "\<C-g>u\<CR>"
+
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+"inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
 
 
 nnoremap <Esc>tC :call NERDComment(0, "toggle")<CR>
