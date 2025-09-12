@@ -1,0 +1,6 @@
+{
+  "snippets.ultisnips.pythonPrompt": false,
+  "suggest.noselect": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.pythonPath": "/usr/bin/python3"
+}
