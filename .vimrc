@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/plugged')
 "Plug 'ycm-core/YouCompleteMe'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'OmniSharp/omnisharp-vim'
 Plug 'preservim/nerdtree'
 "Plug 'tsony-tsonev/nerdtree-git-plugin'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -13,6 +14,8 @@ Plug 'Exafunction/windsurf.vim', { 'branch': 'main' }
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'scrooloose/nerdcommenter' "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
+Plug 'OrangeT/vim-csharp'
 Plug 'skywind3000/vim-terminal-help'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
@@ -23,12 +26,16 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'projekt0n/github-nvim-theme', { 'tag': 'v0.0.7' }
 " Initialize plugin system
 call plug#end()
+let g:airline_powerline_fonts = 1
+
 
 set bg=dark
 set hlsearch
 set backspace=indent,eol,start
-set guifont=DejaVuSansM\ Nerd\ Font:h14
+set guifont=DejaVuSansM\ Nerd\ Font:h12
 set mouse=
+set encoding=utf-8
+set fileencoding=utf-8
 set ignorecase
 set belloff=all
 set foldmethod=indent
@@ -53,6 +60,10 @@ vmap <Leader>y "+y
 vmap <Leader>p "+p
 nnoremap <leader>r @:
 
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+vnoremap <C-s> <Esc>:w<CR>gv
+
 nnoremap - <C-w><
 tnoremap <Esc> <C-\><C-n>
 inoremap <C-BS> <C-w>
@@ -64,6 +75,10 @@ nnoremap <Leader>w+ :vertical resize +5<CR>
 nnoremap <Leader>w- :vertical resize -5<CR>
 nnoremap <Leader>t :tabs<CR>
 
+let g:webdevicons_enable = 1
+autocmd FileType cs let g:airline_symbol_map = {'cs': ''}
+let g:NERDTreeGitStatusWithFlags = 1
+let g:NERDTreeShowIcons = 1
 
 "nnoremap <leader>ac :CocAction<CR>
  "open NERDTree automatically
@@ -82,13 +97,12 @@ colorscheme gruvbox
 "colorscheme github_dark 
 highlight Normal ctermbg=None
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#devicons#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 "let g:vim_jsx_pretty_colorful_config = 1
 
-
 let mapleader = ","
 let g:mapleader = ","
-
 
 source ~/matchit/plugin/matchit.vim
 
@@ -132,7 +146,6 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
-
 set smarttab
 set cindent
 set tabstop=2
@@ -160,6 +173,7 @@ endfunction
 " Highlight currently open buffer in NERDTree
 "autocmd BufEnter * call SyncTree()
 autocmd BufRead * call SyncTree()
+
 
 " coc config
 let g:coc_global_extensions = [
@@ -314,3 +328,4 @@ vnoremap <D-/> :call nerdcommenter#Comment(0, "toggle")<CR
 if has("terminal")
   nnoremap <m-=> :terminal<CR>
 endif
+
